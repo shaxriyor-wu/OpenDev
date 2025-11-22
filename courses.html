@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Online Kurslar Ro'yhati - Free Kurslar</title>
+    <style>
+        /* Reset va asosiy uslublar */
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #b8860b, #1c1c1c); /* Oltin + juda qora */
+            color: #f0e6c8; /* Oltin rangga yaqin yengil rang */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* --- Header uslublari --- */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+            background: #1c1c1c;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: default;
+            user-select: none;
+        }
+
+        .logo-container img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            filter: drop-shadow(0 0 3px #ffd700);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffd700;
+            letter-spacing: 3px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+            user-select: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #e6d8a3;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 40px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+            user-select: none;
+        }
+
+        nav a:hover, nav a:focus {
+            background: #ffd700;
+            color: #1c1c1c;
+            transform: scale(1.1);
+            box-shadow: 0 0 12px #ffd700;
+            outline: none;
+        }
+        /* --- Header uslublari tugadi --- */
+
+        h1 {
+            color: #ffd700; /* Yorqin oltin */
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+            letter-spacing: 2px;
+        }
+
+        p.lead {
+            color: #e6d8a3;
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+            font-weight: 400;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+        }
+
+        /* Kartalar konteyneri */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Har bir karta */
+        .card {
+            background: #1c1c1c; /* juda qorong'i */
+            border-radius: 20px;
+            padding: 25px 30px;
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.2); /* oltin soya */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #f5deb3; /* och oltin */
+        }
+
+        /* Hover effekti */
+        .card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.7);
+            background: #2e2b1f;
+            color: #fff8dc;
+        }
+
+        /* Kurs nomi */
+        .card h2 {
+            margin: 0 0 12px 0;
+            color: #ffd700;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+        }
+
+        /* Kurs ta'rifi */
+        .card p.description {
+            flex-grow: 1;
+            font-size: 1rem;
+            color: #e6d8a3;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+        }
+
+        /* Narx o‘rnidagi "Free" */
+        .card .price {
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #ffd700;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+        }
+
+        /* Tugma */
+        .btn-details {
+            background: #ffd700;
+            color: #1c1c1c;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            align-self: flex-start;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.6);
+            user-select: none;
+        }
+
+        .btn-details:hover {
+            background: #e6c200;
+            color: #111;
+            box-shadow: 0 6px 25px rgba(230, 194, 0, 0.9);
+        }
+
+        /* Footer styling */
+        footer {
+            width: 100%;
+            background: #1c1c1c; /* Matches header background */
+            color: #e6d8a3;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: auto; /* Pushes footer to the bottom */
+            box-shadow: 0 -4px 12px rgba(255, 215, 0, 0.4);
+            margin-top:5zsssss0px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+        }
+
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        footer a:hover {
+            color: #e6c200;
+        }
+
+        /* Responsive text sizes */
+        @media(max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .card h2 {
+                font-size: 1.5rem;
+            }
+
+            .card p.description {
+                font-size: 0.9rem;
+            }
+
+            .card .price {
+                font-size: 1.2rem;
+            }
+
+            footer p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+   <header>
+    <div class="logo-container" aria-label="Platforma logotipi va nomi">
+        <img src="image.png" alt="OpenDev Logo" />
+        <div class="logo-text">OpenDev</div>
+    </div>
+    <nav aria-label="Asosiy navigatsiya">
+        <a href="main.html" tabindex="0">Main</a>
+        <a href="projects.html" tabindex="0">Projects</a>
+        <a href="courses.html" tabindex="0">Courses</a>
+        <a href="contacting.html" tabindex="0">SeniorDevs bilan boglanish</a>
+    </nav>
+</header>
+
+    <h1>Online Kurslar Ro'yhati</h1>
+    <p class="lead">Barcha kurslar bepul! Siz uchun eng sifatli va zamonaviy bilimlar bepul</p>
+
+    <div class="cards-container" id="cards-container">
+        <!-- Kurs kartalari JS orqali qo'shiladi -->
+    </div>
+
+    <footer>
+        <p>&copy; 2025 OpenDev. Barcha huquqlar himoyalangan. | <a href="contact.html">Biz bilan bog'laning</a></p>
+    </footer>
+
+    <script>
+        // Kurslar ma'lumotlari massivda
+        const kurslar = [
+            {
+                nomi: "Python Dasturlash Tili",
+                description: "Python dasturlash tilini boshidan o'rganing. Syntax, operatorlar va amaliy mashqlar bilan mustahkamlang."
+            },
+            {
+                nomi: "Web Dasturlash (HTML, CSS, JS)",
+                description: "Internet saytlarini yaratish asoslari. Frontend texnologiyalarini o'rganib, o'zingizning web loyihangizni yarating."
+            },
+            {
+                nomi: "Ma'lumotlar Tahlili (Data Science)",
+                description: "Data Science asoslari, ma'lumotlarni tozalash, tahlil qilish va vizualizatsiya qilishni o'rganing."
+            },
+            {
+                nomi: "Sun'iy Intellektga Kirish",
+                description: "AI asoslari va mashina o'rganish modellarini yaratishni o'rganing."
+            },
+            {
+                nomi: "Mobil Ilovalar Dasturlash",
+                description: "Android va iOS uchun mobil ilovalar yaratishni o'rganing, Flutter va React Native bilan tanishing."
+            },
+            {
+                nomi: "Kiberxavfsizlik Asoslari",
+                description: "Internet xavfsizligi, tarmoqlarni himoya qilish va kiberhujumlardan himoyalanish usullari."
+            }
+        ];
+
+        // Kurslarni sahifaga joylash funksiyasi
+        const container = document.getElementById('cards-container');
+
+        kurslar.forEach(kurs => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+
+            card.innerHTML = `
+                <h2>${kurs.nomi}</h2>
+                <p class="description">${kurs.description}</p>
+                <div class="price">Free</div>
+                <button class="btn-details" aria-label="Batafsil: ${kurs.nomi}">Batafsil</button>
+            `;
+
+            card.querySelector('.btn-details').addEventListener('click', () => {
+                alert(`${kurs.nomi} kursi haqida batafsil ma'lumotlar tez orada e'lon qilinadi.`);
+            });
+
+            container.appendChild(card);
+        });
+
+        // Sahifa yuklanganda kartalarni silliq paydo bo'lish animatsiyasi
+        window.addEventListener('load', () => {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, i) => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(40px)';
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    card.style.opacity = 1;
+                    card.style.transform = 'translateY(0)';
+                }, i * 150);
+            });
+        });
+    </script>
+</body>
+</html>
